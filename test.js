@@ -23,11 +23,11 @@ describe('Index.html Tests', function () {
 
     it('should have the correct title', async () => {
         const title = await page.title();
-        expect(title).to.equal('Simple Web Page');
+        expect(title).to.equal('Simple Home Page');
     });
 
     it('should contain the header element with correct text', async () => {
         const headerText = await page.$eval('header', el => el.textContent.trim());
-        expect(headerText).to.equal('Welcome to My Simple Web Page');
+        expect(headerText).to.equal('Welcome to My Website');
     });
 });
