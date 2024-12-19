@@ -1,14 +1,37 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
+import { expect } from 'chai';
 
-(async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('www.google.com',{
+describe('Index.html Tests', function () {
+    this.timeout(10000); // Extend timeout for Puppeteer operations
 
-        waitUntil: 'networkidle2',
-        timeout: 60000 // Increase timeout to 60 seconds
+    let browser;
+    let page;
 
-    }); // Path to your local HTML file
-    console.log('Page loaded successfully');
-    await browser.close();
-})();
+    before(async () => {
+        browser = await puppeteer.launch({ headless: true });
+        page = await browser.newPage();
+        await page.goto(`file://${process.cwd()}/index.html`);
+    });
+
+    after(async () => {
+        await browser.close();
+    });
+
+    it('should have the correct title', async () => {
+        const title = await page.title();
+        expect(title).to.equal('Simple Web Page');
+    });
+
+    it('should contain the header element with correct text', async () => {
+        const headerText = await page.$eval('header', el => el.textContent.trim());
+        expect(headerText).to.equal('Welcome to My Simple Web Page');
+    });
+
+    it('should have a container with content', async () => {
+        const containerExists = await page.$('.container') !== null;
+        expect(containerExists).to.be.true;
+
+        const containerText = await page.$eval('.container', el => el.textContent.trim());
+        expect(containerText).to.include('This is a simple and beautiful home page.');
+    });
+});
