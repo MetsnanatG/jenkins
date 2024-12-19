@@ -70,6 +70,34 @@
             background-color: #2980b9;
         }
     </style>
+    <script>
+        // Testing function: Validates button text and color
+        function runTests() {
+            let button = document.querySelector('.button');
+            let errors = [];
+
+            // Test: Button text should be 'Learn More'
+            if (button.textContent.trim() !== 'Learn More') {
+                errors.push("Button text is incorrect.");
+            }
+
+            // Test: Button background color
+            let bgColor = window.getComputedStyle(button).backgroundColor;
+            if (bgColor !== 'rgb(52, 152, 219)') {
+                errors.push("Button background color is incorrect.");
+            }
+
+            // Display test results
+            if (errors.length > 0) {
+                console.error("Tests Failed:", errors);
+            } else {
+                console.log("All tests passed successfully!");
+            }
+        }
+
+        // Run tests after the page loads
+        window.onload = runTests;
+    </script>
 </head>
 <body>
     <header>
@@ -81,8 +109,5 @@
         <p>This is a simple, beautiful home page created using inline CSS. It has a clean layout with modern design principles, such as a well-defined header and a clear call-to-action button.</p>
         <a href="#" class="button">Learn More</a>
     </div>
-
-    <!-- Include the external test script -->
-    <script src="test.js"></script>
 </body>
 </html>
