@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 import { expect } from 'chai';
 
 describe('Index.html Tests', function () {
-    this.timeout(50000); // Increase timeout for Puppeteer
+    this.timeout(10000); // Increase timeout for Puppeteer
 
     let browser;
     let page;
